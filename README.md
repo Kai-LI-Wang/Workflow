@@ -1,1 +1,1 @@
-# MetaTraderFive
+# EA strategy
