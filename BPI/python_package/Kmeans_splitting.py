@@ -20,9 +20,7 @@ class CodeSplitting:
     def __init__(self, data, x, y, continuous,discrete,categorical_col,split_method = 'kmeans', data_continuous = None):
         self.check = CheckData()
         self.df = data 
-        # print("Before: ", self.df['受理日期'])
         self.df['受理日期'] = self.df['受理日期'].apply(self.check.String_to_datetime_sorted_apply)
-        # print("After: ", self.df['受理日期'])
         self.x = x 
         self.y = y 
         self.data_continuous = data_continuous
@@ -32,7 +30,6 @@ class CodeSplitting:
         self.split_method = split_method
         self.selected_col, self.best_param = self.feature_selection()
     
-      
     def remove_ending(self, x):
         if re.findall("\.0", x):
             x = re.sub("\.0","" ,x)
@@ -81,17 +78,13 @@ class CodeSplitting:
         Grid.fit(x_, y_)
         best_param = Grid.best_params_['k']
         sf_fit1.scores_
-        # print("Best parameter for K of SelectKBest is:",best_param)
         score_df = pd.DataFrame(columns = ['Score'], index = self.x.columns)
         score_df = score_df.sort_values(by = ['Score'], ascending = False)
         selected_col = list(score_df.index[:best_param]) + ['檢驗結果_重製']
-        # return dict(zip(selected_col,score_df.loc[selected_col, 'Score']))
         return selected_col, best_param
      
     def code_index(self, code):
         df = self.df.copy()
-        # print("df length check1: ",len(df.index))
-        # print("df unique length check2: ",len(set(df.index)))
         code['code'] = code['code'].astype(str)
         r = np.zeros(len(list(set(code['code'])))*4).reshape(-1,4)
         df_code = pd.DataFrame(r, index = list(set(code['code'].astype(str))), columns = list(np.arange(3)) + ['result'])
@@ -108,7 +101,6 @@ class CodeSplitting:
             group[i] = list(df_code[df_code['result']==i].index)
         
         df_group = dict(zip(np.arange(n), [""]*n))
-        # print(group)
         
         for j in range(3):
             for i in group[j]:
@@ -160,12 +152,9 @@ class CodeSplitting:
             all_groups = self.code_index(code)
         
         elif self.split_method == "existing":
-            df_product = pd.read_excel(r"C:\Users\bbkelly\Desktop\Kelly\BPI 效益資料\20211210模型重跑結果\香辛料中分類拆分.xlsx")
-    #         df = pd.read_excel("./Data/香辛料中分類拆分.xlsx")
+            df_product = pd.read_excel(r"香辛料中分類拆分.xlsx")
             df_product['貨品分類號列中文名稱(香辛料)'] = df_product['貨品分類號列中文名稱(香辛料)'].fillna(method = "ffill")
-            
             df_product['貨品分類號列'] = df_product['貨品分類號列'].apply(self.check.remove_ending_code)
-            # self.df['受理日期'] = self.df['受理日期'].apply(self.check.String_to_datetime_sorted)
             length = len(list(df_product['貨品分類號列中文名稱(香辛料)'].unique()))
             all_groups = []
             code = df_product[['貨品分類號列','貨品分類號列中文名稱(香辛料)' ]]
@@ -187,8 +176,6 @@ class CodeSplitting:
             all_group_list,code = self.determine_n_clusters()     
         elif self.split_method == "existing":
             all_group_list,code = self.determine_n_clusters()
-            # print("all_group_list for exsiting: ",all_group_list)
-            # print('all_group_list length = ', len(all_group_list))
         
         if len(all_group_list)==3:
             print("Error1!")
@@ -196,8 +183,6 @@ class CodeSplitting:
             df1_x, df1_y = x1.drop(['檢驗結果_重製'],axis = 1), x1['檢驗結果_重製']
             df2_x, df2_y = x2.drop(['檢驗結果_重製'],axis = 1), x2['檢驗結果_重製']
             df3_x, df3_y = x3.drop(['檢驗結果_重製'],axis = 1), x3['檢驗結果_重製']
-            # print(x1['檢驗結果_重製'])
-            # print(x2['檢驗結果_重製'])
             return df1_x,df1_y, df2_x, df2_y, df3_x, df3_y,code
         
         elif len(all_group_list) == 4:
@@ -206,8 +191,6 @@ class CodeSplitting:
             df2_x, df2_y = x2.drop(['檢驗結果_重製'],axis = 1), x2['檢驗結果_重製']
             df3_x, df3_y = x3.drop(['檢驗結果_重製'],axis = 1), x3['檢驗結果_重製']
             df4_x, df4_y = x4.drop(['檢驗結果_重製'],axis = 1), x4['檢驗結果_重製']
-            # print(x1['檢驗結果_重製'])
-            # print(x2['檢驗結果_重製'])
             return df1_x,df1_y, df2_x, df2_y, df3_x, df3_y,df4_x, df4_y,code
     
 
