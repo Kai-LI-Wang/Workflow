@@ -8,7 +8,7 @@ class retrieve_data_sql:
     def __init__(self,syntax_sql ):
         self.syntax_sql = syntax_sql
     def query_func(self):
-        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};APP=MicrosoftR WindowsR Operating System;Trusted_Connection=Yes;SERVER=172.16.0.37')
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};APP=MicrosoftR WindowsR Operating System;Trusted_Connection=Yes;SERVER={}'.format(server))
         return pd.DataFrame(pd.read_sql(self.syntax_sql,conn))
 
 class cleaning_data:
