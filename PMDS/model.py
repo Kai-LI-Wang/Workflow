@@ -99,7 +99,7 @@ class test:
         if a.sum() != 0:
             raise "補值失敗, {} 還有缺失值.".format(a[a>0].index.tolist())
         else:
-            "Imputation is successfull."
+            print("Imputation is successfull.")
             
 class DataPreprocessing(test):
     
