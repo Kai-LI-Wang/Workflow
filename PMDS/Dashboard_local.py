@@ -1,7 +1,7 @@
 from dash import Dash, dcc, html, Input, Output,dash_table
 import os
 from PIL import Image
-from 已稽查業者 import GraphPlot
+from model import GraphPlot
 import pandas as pd 
 from sklearn.metrics import auc
 import plotly.express as px 
