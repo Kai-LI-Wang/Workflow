@@ -1,3 +1,3 @@
-## 農情網爬蟲
-- 抓取各品項國內產量，並與PMDS資料庫串接，並與進口資料進行比較
+### 農情網 crawler 
+- scape domestic crop production data from 農情網 and join data from database 
 
