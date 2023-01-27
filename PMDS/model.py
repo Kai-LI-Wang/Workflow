@@ -332,12 +332,7 @@ class BuildModel:
                     criteria = 'precision',
                     n_splits=5,
                     model_selected=None):
-        '''
-        criteria: 'f1', 'recall', 'precision', 'accuracy'
-        n_splits: number of kfold split 
-        model_selected: if it is none, one of models including 'xgb', 'rf', 'Logis', 'BerNB' will be chosen 
-                        based on 'criteria'
-        '''
+        
         print("Model seletion start.")
         start = time.time()
         kfold = KFold(n_splits=n_splits, shuffle = True)
