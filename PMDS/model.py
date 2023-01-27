@@ -335,7 +335,7 @@ class BuildModel:
         '''
         criteria: 'f1', 'recall', 'precision', 'accuracy'
         n_splits: number of kfold split 
-        model_selected: if it is none, one of models including 'xgb', 'rf', 'Logis', 'BerNB will be chosen 
+        model_selected: if it is none, one of models including 'xgb', 'rf', 'Logis', 'BerNB' will be chosen 
                         based on 'criteria'
         '''
         print("Model seletion start.")
