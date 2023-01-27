@@ -1,8 +1,3 @@
-'''
-### Reference 
-@knn_impute(): https://gist.github.com/YohanObadia/b310793cd22a4427faaadd9c381a5850
-
-'''
 from sklearn.metrics import auc
 from itertools import chain
 from collections import Counter 
@@ -219,15 +214,15 @@ class DataPreprocessing(test):
         pass 
     
     def _imputation(self, X,columns = None,cat_cols = None, method = 'knn') -> pd.DataFrame:
-        '''
-        X: array-like or pd.DataFrame
-        method: specify which method applied for dealing with missing value.
-                -> 'knn' : utilize sklearn.preprocessing.KNNImputer 
-                -> 'mean': pd.DataFrame.fillna(X[column].mean())
-                -> 'most_frequent': pd.DataFrame.fillna(df['Label'].value_counts().index[0])
-        columns: if method is 'mean' or 'most_frequent', need to specify columns 
-        cat_cols: if method is 'knn', need to specify categorical columns
-        '''
+        
+        #X: array-like or pd.DataFrame
+        #method: specify which method applied for dealing with missing value.
+        #        -> 'knn' : utilize sklearn.preprocessing.KNNImputer 
+        #        -> 'mean': pd.DataFrame.fillna(X[column].mean())
+        #        -> 'most_frequent': pd.DataFrame.fillna(df['Label'].value_counts().index[0])
+        #columns: if method is 'mean' or 'most_frequent', need to specify columns 
+        #cat_cols: if method is 'knn', need to specify categorical columns
+        
         start = time.time()
         if method == 'knn':
             X_cat_label = self._label_convert(X,cat_cols)
@@ -486,9 +481,9 @@ class FeatureSelection(BuildModel, DataPreprocessing):
         return _importance, rf_col_selected 
     
     def SelectMethod(self,X_train,y_train,X_test,y_test, method = None):
-        '''
-        method: 'lasso', 'anova_chi' , 'rf'
-        '''
+        
+        # method: 'lasso', 'anova_chi' , 'rf'
+        
         start = time.time()
         anova, ch2, temp, Prediction, models, Performacne = [], [], [], {}, {}, {}
         
@@ -687,11 +682,8 @@ if __name__=='__main__':
     
     end = time.time()
     print("Time spent for whole program execution is %d seconds."%(end - start))
-    # xgb.DMatrix(data = X_train, label = y_train)
     
-    '''
-    a = np.array(list(dict(Counter(data['稽查事件編號'])).items()))
-    a[a[:,1].astype(int) > 1].shape
-    '''
+    
+    
     
     
