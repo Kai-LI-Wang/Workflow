@@ -93,11 +93,6 @@ class test:
     def 確認同業者同時有缺失值與非缺失值(self):
         pass 
     
-    def XGB(self ):
-        # please make sure all columns are numerical, especially categorical cols to be encoded
-        # xgb.train(param, dtrain, num_round, evallist)
-        pass 
-    
     def check_miss(self, func):
         X = func()
         a = X.isnull().sum()
